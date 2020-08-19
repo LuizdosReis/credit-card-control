@@ -1,15 +1,15 @@
 <div class="sign-up">
     <h1 class="h3 mb-3">Please sign up</h1>
-    <form [formGroup]="signUpForm">
+    <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
         <div class="container">
             <div class="form-group row">
                 <label for="email_address" class="col-md-4 col-form-label col-form-label-lg text-md-right">E-mail</label>
                 <div class="col-md-8">
                     <input type="text" formControlName="email" id="email_address" class="form-control" name="email-address" required autofocus>
-                    <span class="d-block required">
+                    <span *ngIf="submitted && signUpForm.controls.email.errors?.required" class="d-block required">
                        Required.
                     </span>
-                    <span class="d-block required">
+                    <span *ngIf="submitted && signUpForm.controls.email.errors?.email" class="d-block required">
                         Invalid.
                      </span>
                 </div>
@@ -18,7 +18,16 @@
                 <label for="username" class="col-md-4 col-form-label col-form-label-lg text-md-right">Username</label>
                 <div class="col-md-8">
                     <input type="text" formControlName="username" id="username" class="form-control" required autofocus>
-                    <span class="d-block required">
+                    <span *ngIf="submitted && signUpForm.controls.username.errors?.required" class="d-block required">
+                        Required.
+                     </span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label col-form-label-lg text-md-right">Name</label>
+                <div class="col-md-8">
+                    <input type="text" formControlName="name" id="name" class="form-control" required autofocus>
+                    <span *ngIf="submitted && signUpForm.controls.name.errors?.required" class="d-block required">
                         Required.
                      </span>
                 </div>
@@ -27,7 +36,7 @@
                 <label for="password" class="col-md-4 col-form-label col-form-label-lg text-md-right">Password</label>
                 <div class="col-md-8">
                     <input type="password" formControlName="password" id="password" class="form-control" name="password" required>
-                    <span class="d-block required">
+                    <span *ngIf="submitted && signUpForm.controls.password.errors?.required" class="d-block required">
                         Required.
                      </span>
                 </div>
