@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './../auth.service';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +14,7 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   submitted = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
@@ -27,7 +29,11 @@ export class SignUpComponent implements OnInit {
     this.submitted = true;
 
     if (this.signUpForm.valid) {
-      this.authService.create(this.signUpForm.value).subscribe(response => {});
+      this.authService.create(this.signUpForm.value).subscribe(response => {
+        this.toastr.success('Your account was successfully created');
+      }, err => {
+        this.toastr.error('There was an error how try to create your account');
+      });
     }
   }
 
