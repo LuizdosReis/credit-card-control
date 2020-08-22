@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LoaderService } from './../loader.service';
-import { LoaderState } from './../loader';
+import { LoaderService } from './../../services/loader.service';
+import { LoaderState } from '../../models/loader';
 
 @Component({
   selector: 'app-loader',
@@ -18,7 +18,8 @@ export class LoaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.loaderService.loaderState
-      .subscribe((state: LoaderState) => {
+      .subscribe((state: LoaderState
+        ) => {
         this.show = state.show;
       });
   }
