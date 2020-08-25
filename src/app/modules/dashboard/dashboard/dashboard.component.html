@@ -1,2 +1,35 @@
 <app-header></app-header>
-<p>dashboard works!</p>
+<div id="content">
+    <div class="container">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let expense of expenses; index as i">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ expense.date | date:'dd/MM/yyyy' }}</td>
+                                        <td>{{ expense.value | currency }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div>

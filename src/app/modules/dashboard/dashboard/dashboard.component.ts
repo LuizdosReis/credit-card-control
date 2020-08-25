@@ -1,3 +1,4 @@
+import { DashboardService } from './../dashboard.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  expenses: any;
+
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
+    this.dashboardService.getExpenses().subscribe((data) => {
+      this.expenses = data.content;
+    });
   }
 
 }
