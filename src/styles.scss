@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
-@import '~ngx-toastr/toastr-bs4-alert';
+@import "assets/scss/styles.scss";
 
 .required {
     color: red;
@@ -34,4 +33,3 @@
         }
     }
 }
-
