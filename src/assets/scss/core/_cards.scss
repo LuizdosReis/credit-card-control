@@ -6,6 +6,7 @@
     color: $gray-dark;
     background: $white-color;
     width: 100%;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
 
     .card-header {
         margin: 0px 15px 0;
@@ -16,6 +17,7 @@
 
         &-success {
             background: linear-gradient(60deg, $green-400, $green-600);
+            @include shadow-big-color($brand-success);
         }
 
         .card-title {
