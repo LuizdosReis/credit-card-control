@@ -22,6 +22,21 @@ $green-600: #43a047 !default;
 
 $brand-success: $green-500 !default;
 
+$font-size-h1:                 3.3125rem;
+$font-size-h2:                 2.25rem !default;
+$font-size-h3:                 1.5625rem;
+$font-size-h4:                 1.125rem !default;
+$font-size-h5:                 1.0625rem !default;
+$font-size-h6:                 0.75rem !default;
+$font-paragraph:               14px !default;
+$font-size-navbar:             16px !default;
+$font-size-small:              12px !default;
+
+$font-weight-light: 300 !default;
+
+
+$bmd-table-header-font-size: .95rem;
+
 @mixin shadow-big-color($color){
     // new box shadow optimized for Tablets and Phones
     box-shadow: 0 4px 20px 0px rgba(0, 0, 0, .14),
