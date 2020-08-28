@@ -27,7 +27,17 @@
         }
     }
 
-    .card-body {
+    .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: 0;
+        border-top: 1px solid #eee;
+    }
+
+    .card-body,
+    .card-footer {
         padding: $padding-card-body-y $padding-card-body-x;
     }
 }

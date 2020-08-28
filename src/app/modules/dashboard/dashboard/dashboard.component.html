@@ -25,6 +25,16 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="card-footer">
+                    <ngb-pagination 
+                        [collectionSize]="size" 
+                        [page]="page"
+                        aria-label="Default pagination"
+                        [rotate]="true"
+                        [pageSize]="pageSize"
+                        (pageChange)="pageChange($event)"
+                    ></ngb-pagination>
+                </div>
             </div>
         </div>
     </div>
