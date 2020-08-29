@@ -12,8 +12,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Value</th>
+                                <th scope="col" sortable="date" (sort)="sort($event)">Date</th>
+                                <th scope="col" sortable="value" (sort)="sort($event)">Value</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -24,6 +24,32 @@
         }
     }
 
+    thead{
+        tr{
+            th{
+                font-size: 1.063rem;
+            }
+
+            th.asc,
+            th.desc {
+                font-weight: 900;
+                font-family: 'Font Awesome 5 Free';
+            }
+
+            th.asc {
+                &:before {
+                    content: '\f062';
+                } 
+            }
+
+            th.desc {
+                &:before {
+                    content: '\f063';
+                }
+            }
+        }
+    }
+
     > tbody > tr{
         position: relative;
     }
