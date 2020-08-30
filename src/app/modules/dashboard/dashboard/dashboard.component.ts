@@ -32,15 +32,9 @@ export class NgbdSortableHeader {
     return this.direction === 'desc';
   }
 
-  @HostListener('click', ['$event.target'])
-  onSort(event: any): void {
+  @HostListener('click')
+  onSort(): void {
     this.direction = rotate[this.direction];
-
-    // this.class = this.direction;
-
-    console.log('onSort');
-    console.log(this.direction);
-    console.log(this.sortable);
 
     this.sort.emit({column: this.sortable, direction: this.direction});
  }
@@ -57,6 +51,7 @@ export class DashboardComponent implements OnInit {
   expenses: any;
   size: number;
   page = 0;
+  sort: string;
   pageSize: number;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
@@ -64,26 +59,23 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
-    this.loadExpenses(this.page);
+    this.loadExpenses();
   }
 
-  loadExpenses(page: number): void {
-    this.dashboardService.getExpenses(page).subscribe((data) => {
+  loadExpenses(): void {
+    this.dashboardService.getExpenses(this.page, this.sort).subscribe((data) => {
       this.expenses = data.content;
       this.size = data.totalElements;
       this.pageSize = data.size;
-      this.page = data.pageable.pageNumber + 1;
     });
   }
 
   pageChange(page: number): void {
-    this.loadExpenses(page - 1);
+    this.page = page - 1;
+    this.loadExpenses();
   }
 
-  sort({column, direction}: SortEvent): void {
-
-    console.log(column);
-    console.log(direction);
+  onSort({column, direction}: SortEvent): void {
 
     // resetting other headers
     this.headers.forEach(header => {
@@ -92,6 +84,10 @@ export class DashboardComponent implements OnInit {
       }
     });
 
+    this.page = 0;
+    this.sort = column && direction ? `${column},${direction}` : '';
+
+    this.loadExpenses();
 
   }
 }

@@ -12,8 +12,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col" sortable="date" (sort)="sort($event)">Date</th>
-                                <th scope="col" sortable="value" (sort)="sort($event)">Value</th>
+                                <th scope="col" sortable="date" (sort)="onSort($event)">Date</th>
+                                <th scope="col" sortable="value" (sort)="onSort($event)">Value</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,7 +28,7 @@
                 <div class="card-footer">
                     <ngb-pagination 
                         [collectionSize]="size" 
-                        [page]="page"
+                        [page]="page + 1"
                         aria-label="Default pagination"
                         [rotate]="true"
                         [pageSize]="pageSize"
