@@ -41,4 +41,8 @@ export class DashboardComponent implements OnInit {
     this.loadExpenses();
 
   }
+
+  addExpense(): void {
+    this.dashboardService.addExpense();
+  }
 }

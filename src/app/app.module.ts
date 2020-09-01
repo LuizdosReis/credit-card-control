@@ -4,7 +4,6 @@ import { CoreModule } from './modules/core/core.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +11,7 @@ import { AppComponent } from './app.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       closeButton: true
     }),
     NgbModule,
+    NgxCurrencyModule.forRoot({
+      align: 'left',
+      allowNegative: true,
+      allowZero: true,
+      decimal: ',',
+      precision: 2,
+      prefix: 'R$ ',
+      suffix: '',
+      thousands: '.',
+      nullable: true,
+      min: null,
+      max: null,
+      inputMode: CurrencyMaskInputMode.FINANCIAL
+    })
   ],
   bootstrap: [AppComponent]
 })
