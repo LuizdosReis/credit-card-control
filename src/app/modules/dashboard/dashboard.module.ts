@@ -7,7 +7,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExpenseListComponent } from './components/expense-list/expense-list.component';
 import { ExpenseFormModalComponent } from './components/expense-form-modal/expense-form-modal.component';
-import { NgxCurrencyModule } from "ngx-currency";
+import { NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
   declarations: [DashboardComponent, ExpenseListComponent, ExpenseFormModalComponent],

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-expense-form-modal',
@@ -10,15 +9,20 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 export class ExpenseFormModalComponent implements OnInit {
 
   fg: FormGroup;
-  model: NgbDateStruct;
+
+  public submit: EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.fg = this.formBuilder.group({
-      date: ['', [Validators.required]],
+      date: ['2020-08-22T20:12:33.399Z', [Validators.required]],
       value: ['', [Validators.required]],
     });
+  }
+
+  save(): void {
+    this.submit.emit(this.fg.value);
   }
 
 }

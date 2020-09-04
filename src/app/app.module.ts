@@ -12,6 +12,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
       min: null,
       max: null,
       inputMode: CurrencyMaskInputMode.FINANCIAL
-    })
+    }),
+    ModalModule.forRoot()
   ],
   bootstrap: [AppComponent]
 })
