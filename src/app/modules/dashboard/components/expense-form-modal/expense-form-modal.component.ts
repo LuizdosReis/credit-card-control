@@ -16,7 +16,7 @@ export class ExpenseFormModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.formBuilder.group({
-      date: ['2020-08-22T20:12:33.399Z', [Validators.required]],
+      date: [new Date(), [Validators.required]],
       value: ['', [Validators.required]],
     });
   }

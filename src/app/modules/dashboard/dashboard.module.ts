@@ -8,6 +8,7 @@ import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ExpenseListComponent } from './components/expense-list/expense-list.component';
 import { ExpenseFormModalComponent } from './components/expense-form-modal/expense-form-modal.component';
 import { NgxCurrencyModule } from 'ngx-currency';
+import { SharedModule } from './../shared/shared/shared.module';
 
 @NgModule({
   declarations: [DashboardComponent, ExpenseListComponent, ExpenseFormModalComponent],
@@ -19,7 +20,8 @@ import { NgxCurrencyModule } from 'ngx-currency';
     ReactiveFormsModule,
     NgxCurrencyModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    SharedModule,
   ]
 })
 export class DashboardModule { }
