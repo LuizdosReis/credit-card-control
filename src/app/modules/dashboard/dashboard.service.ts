@@ -15,13 +15,13 @@ export class DashboardService {
 
   constructor(private http: HttpClient, private modalService: BsModalService, private toastr: ToastrService) { }
 
-  addExpense(): void{
-    this.bsModalRef = this.modalService.show(ExpenseFormModalComponent);
-    this.bsModalRef.content.submit.subscribe((expense: Expense) => {
-      this.saveExpense(expense).subscribe(
+  openExpenseForm(expense?: Expense): void{
+    this.bsModalRef = this.modalService.show(ExpenseFormModalComponent, { initialState: { expense }});
+    this.bsModalRef.content.submit.subscribe((updateExpense: Expense) => {
+      this.saveExpense({...expense, ...updateExpense}).subscribe(
         success => {
           this.bsModalRef.hide();
-          this.toastr.success('Your expense was successfully created');
+          this.toastr.success(`Your expense was successfully ${expense ? 'updated ' : 'created'}`);
         },
         err => {
           this.toastr.error('Not was possible to create your expense');
@@ -31,6 +31,10 @@ export class DashboardService {
   }
 
   saveExpense(expense: Expense): Observable<Expense> {
+    if (expense.id) {
+      return this.http.put<Expense>(`https://credit-card-control-dev-api.herokuapp.com/api/expenses/${expense.id}`, expense );
+    }
+
     return this.http.post<Expense>('https://credit-card-control-dev-api.herokuapp.com/api/expenses', expense );
   }
 

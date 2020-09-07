@@ -12,6 +12,7 @@ export class ExpenseListComponent implements OnInit {
   @Input() expenses: Expense[];
 
   @Output() sortChange = new EventEmitter<SortEvent>();
+  @Output() editExpense = new EventEmitter<Expense>();
 
   @ViewChildren(SortableHeaderDirective) headers: QueryList<SortableHeaderDirective>;
 
@@ -21,8 +22,6 @@ export class ExpenseListComponent implements OnInit {
   }
 
   onSort(sortEvent: SortEvent): void {
-    console.log(sortEvent);
-
     // resetting other headers
     this.headers.forEach(header => {
       if (header.appSortable !== sortEvent.column) {

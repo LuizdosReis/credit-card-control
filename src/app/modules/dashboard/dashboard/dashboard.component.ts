@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from './../dashboard.service';
-import { SortEvent } from './../../core/models';
+import { SortEvent, Expense } from './../../core/models';
 
 @Component({
   selector: 'app-dashboard',
@@ -43,6 +43,10 @@ export class DashboardComponent implements OnInit {
   }
 
   addExpense(): void {
-    this.dashboardService.addExpense();
+    this.dashboardService.openExpenseForm();
+  }
+
+  editExpense(expense: Expense): void {
+    this.dashboardService.openExpenseForm(expense);
   }
 }

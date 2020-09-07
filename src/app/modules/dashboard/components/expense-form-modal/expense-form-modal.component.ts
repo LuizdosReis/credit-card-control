@@ -1,3 +1,4 @@
+import { Expense } from './../../../core/models';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,6 +11,7 @@ export class ExpenseFormModalComponent implements OnInit {
 
   fg: FormGroup;
   submitted = false;
+  expense: Expense;
 
   public submit: EventEmitter<any> = new EventEmitter();
 
@@ -17,9 +19,10 @@ export class ExpenseFormModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.formBuilder.group({
-      date: [new Date(), [Validators.required]],
-      value: ['', [Validators.required]],
+      date: [this.expense ? new Date(this.expense.date) : new Date(), [Validators.required]],
+      value: [this.expense ? this.expense.value : '', [Validators.required]],
     });
+
   }
 
   save(): void {

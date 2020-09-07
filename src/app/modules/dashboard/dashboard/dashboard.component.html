@@ -11,6 +11,7 @@
                     <app-expense-list
                         [expenses]="expenses"
                         (sortChange)="updateSort($event)"
+                        (editExpense)="editExpense($event)"
                     ></app-expense-list>
                 </div>
                 <div class="card-footer">
