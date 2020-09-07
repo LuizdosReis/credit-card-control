@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ExpenseFormModalComponent implements OnInit {
 
   fg: FormGroup;
+  submitted = false;
 
   public submit: EventEmitter<any> = new EventEmitter();
 
@@ -22,7 +23,9 @@ export class ExpenseFormModalComponent implements OnInit {
   }
 
   save(): void {
-    this.submit.emit(this.fg.value);
+    this.submitted = true;
+    if (this.fg.valid) {
+      this.submit.emit(this.fg.value);
+    }
   }
-
 }
