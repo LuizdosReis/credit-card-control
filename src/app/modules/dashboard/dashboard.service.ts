@@ -28,6 +28,21 @@ export class DashboardService {
         }
       );
     });
+    this.bsModalRef.content.remove.subscribe((id: number) => {
+      this.removeExpense(id).subscribe(
+        success => {
+          this.bsModalRef.hide();
+          this.toastr.success('Your expense was successfully removed');
+        },
+        err => {
+          this.toastr.error('Not was possible to remove your expense');
+        }
+      );
+    });
+  }
+
+  removeExpense(id: number): Observable<void> {
+    return this.http.delete<void>(`https://credit-card-control-dev-api.herokuapp.com/api/expenses/${id}`);
   }
 
   saveExpense(expense: Expense): Observable<Expense> {

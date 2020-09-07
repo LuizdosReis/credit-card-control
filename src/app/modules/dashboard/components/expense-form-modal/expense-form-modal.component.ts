@@ -13,7 +13,9 @@ export class ExpenseFormModalComponent implements OnInit {
   submitted = false;
   expense: Expense;
 
-  public submit: EventEmitter<any> = new EventEmitter();
+  public submit: EventEmitter<Expense> = new EventEmitter();
+  public remove: EventEmitter<number> = new EventEmitter();
+
 
   constructor(private formBuilder: FormBuilder) { }
 

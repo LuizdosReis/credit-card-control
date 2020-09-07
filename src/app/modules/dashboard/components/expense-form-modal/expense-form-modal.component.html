@@ -25,6 +25,10 @@
             </span>
         </div>
     </form>
+    <div class="d-flex justify-content-center" *ngIf="expense">
+        <button type="button" class="btn btn-outline-danger" (click)="remove.emit(expense.id)">Delete</button>
+    </div>
+
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="save()">Save</button>
