@@ -63,4 +63,8 @@ export class AuthService {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('expiresAt');
   }
+
+  logout(): void {
+    this.clearLocalStore();
+  }
 }
