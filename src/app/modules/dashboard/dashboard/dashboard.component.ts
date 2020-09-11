@@ -43,10 +43,10 @@ export class DashboardComponent implements OnInit {
   }
 
   addExpense(): void {
-    this.dashboardService.openExpenseForm();
+    this.dashboardService.openExpenseForm().subscribe(() => this.loadExpenses());
   }
 
   editExpense(expense: Expense): void {
-    this.dashboardService.openExpenseForm(expense);
+    this.dashboardService.openExpenseForm(expense).subscribe(() => this.loadExpenses());
   }
 }

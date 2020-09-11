@@ -1,10 +1,11 @@
 import { Expense } from './../core/models';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, merge } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ExpenseFormModalComponent } from '../dashboard/components/expense-form-modal/expense-form-modal.component';
 import { ToastrService } from 'ngx-toastr';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,30 +16,38 @@ export class DashboardService {
 
   constructor(private http: HttpClient, private modalService: BsModalService, private toastr: ToastrService) { }
 
-  openExpenseForm(expense?: Expense): void{
+  openExpenseForm(expense?: Expense): Observable<any> {
     this.bsModalRef = this.modalService.show(ExpenseFormModalComponent, { initialState: { expense }});
-    this.bsModalRef.content.submit.subscribe((updateExpense: Expense) => {
-      this.saveExpense({...expense, ...updateExpense}).subscribe(
-        success => {
+    const submit = this.bsModalRef.content.submit.pipe(
+      map((updateExpense: Expense) => ({...expense, ...updateExpense})),
+      switchMap((updatedExpense: Expense) => this.saveExpense(updatedExpense)),
+      tap({
+        next: next => {
           this.bsModalRef.hide();
           this.toastr.success(`Your expense was successfully ${expense ? 'updated ' : 'created'}`);
         },
-        err => {
+        error: err => {
           this.toastr.error('Not was possible to create your expense');
         }
-      );
-    });
-    this.bsModalRef.content.remove.subscribe((id: number) => {
-      this.removeExpense(id).subscribe(
-        success => {
+      }),
+      take(1)
+    );
+
+    const remove = this.bsModalRef.content.remove.pipe(
+      switchMap((id: number) => this.removeExpense(id)),
+      tap({
+        next: next => {
           this.bsModalRef.hide();
           this.toastr.success('Your expense was successfully removed');
         },
-        err => {
+        error: err => {
           this.toastr.error('Not was possible to remove your expense');
         }
-      );
-    });
+      }),
+      take(1)
+    );
+
+    return merge(remove, submit, 2);
   }
 
   removeExpense(id: number): Observable<void> {
