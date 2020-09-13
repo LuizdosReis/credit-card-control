@@ -15,14 +15,12 @@
                     ></app-expense-list>
                 </div>
                 <div class="card-footer">
-                    <ngb-pagination 
-                        [collectionSize]="size" 
-                        [page]="page + 1"
-                        aria-label="Default pagination"
-                        [rotate]="true"
-                        [pageSize]="pageSize"
+                    <app-pagination 
+                        [currentPage]="page"
+                        [limit]="pageSize"
+                        [size]="size" 
                         (pageChange)="pageChange($event)"
-                    ></ngb-pagination>
+                    ></app-pagination>
                 </div>
             </div>
         </div>

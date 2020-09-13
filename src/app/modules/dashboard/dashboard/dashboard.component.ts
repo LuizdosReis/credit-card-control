@@ -10,10 +10,10 @@ import { SortEvent, Expense } from './../../core/models';
 export class DashboardComponent implements OnInit {
 
   expenses: any;
-  size: number;
+  size = 1;
   page = 0;
   sort: string;
-  pageSize: number;
+  pageSize = 10;
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadExpenses(): void {
-    this.dashboardService.getExpenses(this.page, this.sort).subscribe((data) => {
+    this.dashboardService.getExpenses(this.page, this.sort, this.pageSize).subscribe((data) => {
       this.expenses = data.content;
       this.size = data.totalElements;
       this.pageSize = data.size;
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   }
 
   pageChange(page: number): void {
-    this.page = page - 1;
+    this.page = page;
     this.loadExpenses();
   }
 

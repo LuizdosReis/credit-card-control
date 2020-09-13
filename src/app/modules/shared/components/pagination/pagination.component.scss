@@ -1,0 +1,45 @@
+@import "../../../../../styles.scss";
+
+.pagination {
+
+    &.pagination--centered {
+        justify-content: center;
+    }
+
+    &.pagination--right {
+        justify-content: flex-end;
+    }
+
+    li {
+
+        margin: 0 5px;
+
+        &.disabled .page-link,
+        .page-link {
+            background: transparent;
+            border: 0;
+            color: $gray-dark;
+            font-weight: 500;
+            border-radius: $border-radius-large;
+            font-size: 14px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:focus {
+                box-shadow: none;
+            }
+            &:hover {
+                background: rgba(black, .05);
+            }
+        }
+    
+        &.active .page-link {
+            color: white;
+            background: $green-400;
+        }
+
+    }
+
+}

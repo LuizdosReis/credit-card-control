@@ -62,11 +62,11 @@ export class DashboardService {
     return this.http.post<Expense>('https://credit-card-control-dev-api.herokuapp.com/api/expenses', expense );
   }
 
-  getExpenses(page: number, sort: string): Observable<any> {
+  getExpenses(page: number, sort: string, pageSize: number): Observable<any> {
 
     let params = new HttpParams()
       .set('page', page.toString())
-      .set('size', '10');
+      .set('size', pageSize.toString());
 
     if (sort) {
       params = params.set('sort', sort);

@@ -1,0 +1,19 @@
+<ul class="pagination">
+    <li class="page-item" (click)="selectPage(currentPage - 1, $event)" [class.disabled]="currentPage == 0"> 
+        <a href="" class="page-link" title="Go to previous page"><i class="fas fa-chevron-left"></i></a>
+    </li>
+    <li class="disabled page-item" (click)="cancelEvent($event)" *ngIf="(currentPage - range) >= 1">
+        <a href="" class="page-link">...</a>
+    </li>
+    <li *ngFor="let page of pages | async" class="page-item" [class.active]="page == currentPage">
+        <a class="page-link" href="" (click)="selectPage(page, $event)">
+            {{page + 1}}
+        </a>
+    </li>
+    <li class="disabled page-item" (click)="cancelEvent($event)" *ngIf="(currentPage + range) < totalPages - 1">
+        <a href="" class="page-link">...</a>
+    </li>
+    <li class="page-item" (click)="selectPage(currentPage + 1, $event)" [class.disabled]="currentPage == totalPages - 1"> 
+        <a href="" class="page-link" title="Go to next page"><i class="fas fa-chevron-right"></i></a>
+    </li>
+</ul>

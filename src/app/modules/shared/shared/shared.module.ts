@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { PaginationComponent } from './../components/pagination/pagination.component';
 
 
 export function getDatepickerConfig(): BsDatepickerConfig {
@@ -12,13 +13,14 @@ export function getDatepickerConfig(): BsDatepickerConfig {
 }
 
 @NgModule({
-  declarations: [],
+  declarations: [PaginationComponent],
   imports: [
     CommonModule,
     BsDatepickerModule.forRoot(),
   ],
   exports: [
     BsDatepickerModule,
+    PaginationComponent
   ],
   providers: [{ provide: BsDatepickerConfig, useFactory: getDatepickerConfig }]
 })
