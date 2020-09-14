@@ -1,0 +1,15 @@
+<ul class="month-year-picker">
+    <li> 
+        <a href="" class="btn btn-lg page-link" title="Go to previous month" (click)="goToPreviousMonth($event)"><i class="fas fa-chevron-left"></i></a>
+    </li>
+    <li *ngFor="let monthYear of monthsYears | async" class="page-item" [class.active]="monthYear.isSame(currentMonthYear)">
+        <a class="btn btn-lg page-link" href="" (click)="selectMonthYear(monthYear, $event)">
+            {{ monthYear.format("MMM, YYYY")}}
+        </a>
+    </li>
+    <li class="page-item"> 
+        <a href="" class="btn btn-lg page-link" title="Go to next month" (click)="goToNextMonth($event)">
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </li>
+</ul>

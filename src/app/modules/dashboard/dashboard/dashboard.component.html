@@ -1,7 +1,20 @@
 <app-header></app-header>
 <div class="container-fluid pt-5 pb-5">
+
     <div class="row">
+        
         <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center">
+                <app-month-picker
+                    [currentMonthYear]="monthYear"
+                    (monthYearChange)="monthYearChange($event)"
+                ></app-month-picker>
+            </div>
+        </div>
+        
+        <div class="col-12">
+
+            
 
             <div class="card">
                 <div class="card-header card-header-success">
