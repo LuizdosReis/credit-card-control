@@ -37,7 +37,6 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.totalPages = this.getTotalPages(limit, size);
     this.pages = range(-this.range, this.range * 2 + 1).pipe(
       map(off => currentPage + off),
-      tap(page => console.log(page)),
       filter(page => this.isValidPageNumber(page, this.totalPages)),
       toArray(),
     );
