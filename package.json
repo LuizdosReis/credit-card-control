@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
     "bootstrap": "^4.5.2",
+    "chart.js": "^2.9.3",
     "moment": "^2.28.0",
     "ngx-bootstrap": "^6.1.0",
     "ngx-currency": "^2.5.1",
