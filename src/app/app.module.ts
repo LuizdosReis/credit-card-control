@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
@@ -31,7 +30,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       progressBar: true,
       closeButton: true
     }),
-    NgbModule,
     NgxCurrencyModule.forRoot({
       align: 'left',
       allowNegative: true,
