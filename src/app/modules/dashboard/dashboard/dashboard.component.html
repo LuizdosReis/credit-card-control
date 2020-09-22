@@ -19,11 +19,8 @@
                     <h4 class="card-title">Chart</h4>
                 </div>
                 <div class="card-body">
-                    <div [hidden]="!chart">
-                        <canvas id="canvas">{{chart}}</canvas>
-                    </div>
-                    
-                </div>
+                    <app-expense-chart></app-expense-chart>
+                </div>      
             </div>
         </div>
         

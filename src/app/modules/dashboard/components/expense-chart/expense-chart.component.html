@@ -1,0 +1,17 @@
+<div class="d-flex align-items-baseline legend">
+    <p class="legend__title">{{ value | currency }}</p>
+    <p class="legend__subtitle ml-2">{{ valueGoal | currency }}</p>
+</div>
+<apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [yaxis]="chartOptions.yaxis"
+    [stroke]="chartOptions.stroke"
+    [markers]="chartOptions.markers"
+    [dataLabels]="chartOptions.dataLabels"
+    [fill]="chartOptions.fill"
+    [grid]="chartOptions.grid"
+    [colors]="chartOptions.colors"
+    [tooltip]="chartOptions.tooltip"
+></apx-chart>
