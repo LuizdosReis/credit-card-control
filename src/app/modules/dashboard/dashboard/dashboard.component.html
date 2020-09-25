@@ -19,7 +19,9 @@
                     <h4 class="card-title">Chart</h4>
                 </div>
                 <div class="card-body">
-                    <app-expense-chart></app-expense-chart>
+                    <app-expense-chart *ngIf="observableChart | async as chartSeries"
+                        [chartSeries]="chartSeries"
+                    ></app-expense-chart>
                 </div>      
             </div>
         </div>

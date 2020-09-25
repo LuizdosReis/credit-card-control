@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DashboardService } from './../dashboard.service';
 import { SortEvent, Expense } from './../../core/models';
 import * as moment from 'moment';
@@ -11,6 +12,7 @@ import * as moment from 'moment';
 export class DashboardComponent implements OnInit {
 
   expenses: any;
+  observableChart: Observable<any>;
   size = 1;
   page = 0;
   sort = 'date,desc';
@@ -21,6 +23,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadExpenses();
+    this.loadChart();
+  }
+
+  loadChart(): void {
+    const monthYear = this.monthYear.format('YYYY-MM');
+    this.observableChart = this.dashboardService.getChartLineSeries(monthYear);
   }
 
   loadExpenses(): void {
@@ -42,6 +50,7 @@ export class DashboardComponent implements OnInit {
     this.page = 0;
     this.sort = 'date,desc';
     this.loadExpenses();
+    this.loadChart();
   }
 
   updateSort({column, direction}: SortEvent): void {
@@ -53,10 +62,18 @@ export class DashboardComponent implements OnInit {
   }
 
   addExpense(): void {
-    this.dashboardService.openExpenseForm().subscribe(() => this.loadExpenses());
+    this.dashboardService.openExpenseForm()
+      .subscribe(() => {
+        this.loadExpenses();
+        this.loadChart();
+      });
   }
 
   editExpense(expense: Expense): void {
-    this.dashboardService.openExpenseForm(expense).subscribe(() => this.loadExpenses());
+    this.dashboardService.openExpenseForm(expense)
+      .subscribe(() => {
+        this.loadExpenses();
+        this.loadChart();
+      });
   }
 }

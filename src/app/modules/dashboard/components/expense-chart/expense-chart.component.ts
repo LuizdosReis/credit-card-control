@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, Input, OnInit, ViewChild} from '@angular/core';
 
 import {
   ChartComponent,
@@ -22,6 +22,8 @@ export type ChartOptions = {
 })
 export class ExpenseChartComponent implements OnInit {
 
+  @Input() chartSeries: any;
+
   value: number;
   valueGoal: number;
 
@@ -32,25 +34,22 @@ export class ExpenseChartComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const dailyExpenses = [10.00, 10.00, 802.22, 802.22, 802.22, 991.29,
-      991.29, 991.29, 1039.29, 1214.10, 1224.00, 1241.00, 1315.66, 1325.66, 1328.16, 1328.16, 1328.16];
 
-    const dailyGoalExpenses =  [ 47.82, 95.64, 143.46, 191.28, 239.1, 286.92, 334.74, 382.56, 430.38, 478.2, 526.02, 573.84, 621.66,
-      669.48, 717.3, 765.12, 812.94, 860.76, 908.58, 956.4, 1004.22, 1052.04, 1099.86,
-      1147.68, 1195.5, 1243.32, 1291.14, 1338.96, 1386.78, 1434.6];
+    const expenseGoals = this.chartSeries?.expenseGoals;
+    const expenses = this.chartSeries?.expenses;
 
-    this.value = dailyExpenses[dailyExpenses.length - 1];
-    this.valueGoal = dailyGoalExpenses[dailyExpenses.length - 1];
+    this.value = expenses[expenses.length - 1].sum;
+    this.valueGoal = expenseGoals[expenseGoals.length - 1].sum;
 
     this.chartOptions = {
       series: [
         {
           name: 'Daily Expenses',
-          data: dailyExpenses
+          data: expenses.map(expense => expense.sum)
         },
         {
           name: 'Daily Goal Expenses',
-          data: dailyGoalExpenses
+          data: expenseGoals.map(expense => expense.sum)
         }
       ],
       tooltip: {
@@ -61,15 +60,15 @@ export class ExpenseChartComponent implements OnInit {
         events: {
           mouseMove: (event, chartContext, config) => {
             if ( config.dataPointIndex === -1 ) {
-              this.value = dailyExpenses[dailyExpenses.length - 1];
-              this.valueGoal = dailyGoalExpenses[dailyExpenses.length - 1];
+              this.value = expenses[expenses.length - 1].sum;
+              this.valueGoal = expenseGoals[expenseGoals.length - 1].sum;
               return;
             }
 
-            this.value = dailyExpenses[config.dataPointIndex]
-              ? dailyExpenses[config.dataPointIndex]
-              : dailyExpenses[dailyExpenses.length - 1];;
-            this.valueGoal = dailyGoalExpenses[config.dataPointIndex];
+            this.value = expenses[config.dataPointIndex]
+              ? expenses[config.dataPointIndex].sum
+              : expenses[expenses.length - 1].sum;
+            this.valueGoal = expenseGoals[config.dataPointIndex].sum;
           }
         },
         toolbar: {

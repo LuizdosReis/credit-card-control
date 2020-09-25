@@ -75,4 +75,13 @@ export class DashboardService {
 
     return this.http.get<any>('https://credit-card-control-dev-api.herokuapp.com/api/expenses', { params });
   }
+
+
+  getChartLineSeries(monthYear: string): Observable<any> {
+
+    const params = new HttpParams()
+      .set('yearMonth', monthYear);
+
+    return this.http.get<any>('https://credit-card-control-dev-api.herokuapp.com/api/charts/line', { params });
+  }
 }
