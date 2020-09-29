@@ -98,7 +98,7 @@ export class ExpenseChartComponent implements OnInit {
       grid: {
         show: false
       },
-      colors: ['#77B6EA', '#545454'],
+      colors: ['#4caf50', '#545454'],
     };
   }
 
