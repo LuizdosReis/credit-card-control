@@ -1,3 +1,5 @@
+@import "../../../../../styles.scss";
+
 .loader {
     background-color: rgba(0, 0, 0, .2);
     bottom: 0;
@@ -25,10 +27,10 @@
     filter: url(#gegga);
   }
   .stopp1 {
-    stop-color: #007bff;
+    stop-color: $green-400;
   }
   .stopp2 {
-    stop-color: #A6E3D5;
+    stop-color: $green-600;
   }
   .halvan {
     animation: Snurra1 10s infinite linear;
