@@ -5,14 +5,14 @@
     border-radius: $border-radius-large;
     color: $gray-dark;
     background: $white-color;
-    width: 100%;
+    padding: $padding-card-body-y $padding-card-body-x;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
 
     .card-header {
         margin: 0px 15px 0;
         padding: 0;
         border-radius: $border-radius-base;
-        margin-top: -20px;
+        margin-top: -35px;
         padding: 15px;
 
         &-success {
