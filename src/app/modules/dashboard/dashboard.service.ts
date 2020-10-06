@@ -51,15 +51,15 @@ export class DashboardService {
   }
 
   removeExpense(id: number): Observable<void> {
-    return this.http.delete<void>(`https://credit-card-control-dev-api.herokuapp.com/api/expenses/${id}`);
+    return this.http.delete<void>(`/api/expenses/${id}`);
   }
 
   saveExpense(expense: Expense): Observable<Expense> {
     if (expense.id) {
-      return this.http.put<Expense>(`https://credit-card-control-dev-api.herokuapp.com/api/expenses/${expense.id}`, expense );
+      return this.http.put<Expense>(`/api/expenses/${expense.id}`, expense );
     }
 
-    return this.http.post<Expense>('https://credit-card-control-dev-api.herokuapp.com/api/expenses', expense );
+    return this.http.post<Expense>('/api/expenses', expense );
   }
 
   getExpenses(page: number, sort: string, pageSize: number, monthYear: string): Observable<any> {
@@ -73,7 +73,7 @@ export class DashboardService {
       params = params.set('sort', sort);
     }
 
-    return this.http.get<any>('https://credit-card-control-dev-api.herokuapp.com/api/expenses', { params });
+    return this.http.get<any>('/api/expenses', { params });
   }
 
 
@@ -82,6 +82,6 @@ export class DashboardService {
     const params = new HttpParams()
       .set('yearMonth', monthYear);
 
-    return this.http.get<any>('https://credit-card-control-dev-api.herokuapp.com/api/charts/line', { params });
+    return this.http.get<any>('/api/charts/line', { params });
   }
 }

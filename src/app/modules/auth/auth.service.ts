@@ -19,11 +19,11 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   create(userRequest: UserRequest): Observable<any> {
-    return this.httpClient.post('https://credit-card-control-dev-api.herokuapp.com/api/users', userRequest);
+    return this.httpClient.post('/api/users', userRequest);
   }
 
   login(loginRequest: LoginRequest): Observable<boolean> {
-    return this.httpClient.post('https://credit-card-control-dev-api.herokuapp.com/api/auth/login', loginRequest)
+    return this.httpClient.post('/api/auth/login', loginRequest)
       .pipe(map((data: AuthenticationResponse) => {
         this.storeAuthentication(data);
         return true;
@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   refreshToken(): Observable<AuthenticationResponse> {
-    return this.httpClient.post('https://credit-card-control-dev-api.herokuapp.com/api/auth/refresh-token', this.refreshTokenRequest)
+    return this.httpClient.post('api/auth/refresh-token', this.refreshTokenRequest)
       .pipe(tap((data: AuthenticationResponse) => {
         this.clearLocalStore();
         this.storeAuthentication(data);

@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://credit-card-control-dev-api.herokuapp.com",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
