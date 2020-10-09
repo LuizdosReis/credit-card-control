@@ -33,7 +33,10 @@
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js"
-            ]
+            ],
+            "allowedCommonJsDependencies": [
+              "apexcharts"
+           ]
           },
           "configurations": {
             "production": {
@@ -50,6 +53,7 @@
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
+              "aot": true,
               "buildOptimizer": true,
               "budgets": [
                 {
