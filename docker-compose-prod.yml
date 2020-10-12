@@ -1,0 +1,10 @@
+version: '2.1'
+services:
+  credit-card-control-client:
+    build:
+      context: .
+      dockerfile: production.dockerfile
+    image: credit-card-control-client
+    container_name: credit-card-control-client
+    ports:
+      - 8080:80

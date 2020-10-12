@@ -1,3 +1,12 @@
-node_modules
-.git
-.gitignore
+**/node_modules
+**/.git
+**/.gitignore
+**/dist
+**/.vscode
+**/e2e
+README.md
+docker-compose.yml
+dockerfile
+dockerfile.production
+proxy.conf.json
+
