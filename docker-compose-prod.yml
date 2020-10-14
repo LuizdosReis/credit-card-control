@@ -3,8 +3,10 @@ services:
   credit-card-control-client:
     build:
       context: .
-      dockerfile: production.dockerfile
+      dockerfile: dockerfile.prod
     image: credit-card-control-client
     container_name: credit-card-control-client
+    environment: 
+      PORT: 80
     ports:
       - 8080:80
