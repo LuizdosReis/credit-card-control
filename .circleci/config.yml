@@ -1,0 +1,21 @@
+workflows:
+    version: 2
+    build-deploy:
+        jobs:
+            - deploy-prod:
+                filters:
+                    branches:
+                        only: master
+
+deploy-prod:
+    machine: true
+    steps:
+        - checkout
+        - run:
+            name: Build and push Docker image to Heroku
+            command:
+                sudo curl https://cli-assets.heroku.com/install.sh | sh
+                HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+                docker build -t registry.heroku.com/credit-card-control-client/web -f dockerfile.prod .
+                docker push registry.heroku.com/credit-card-control-client/web
+                HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a credit-card-control-client web
