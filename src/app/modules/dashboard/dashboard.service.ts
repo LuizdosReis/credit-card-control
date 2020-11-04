@@ -50,6 +50,15 @@ export class DashboardService {
     return merge(remove, submit, 2);
   }
 
+  openEditExpenseForm(expenseId: number): Observable<any> {
+    return this.getExpense(expenseId).pipe(switchMap((expense: Expense) => this.openExpenseForm(expense)));
+  }
+
+
+  getExpense(id: number): Observable<Expense> {
+    return this.http.get<Expense>(`/api/expenses/${id}`);
+  }
+
   removeExpense(id: number): Observable<void> {
     return this.http.delete<void>(`/api/expenses/${id}`);
   }

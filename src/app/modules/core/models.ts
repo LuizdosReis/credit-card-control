@@ -2,6 +2,13 @@ export interface Expense {
     id: number;
     date: Date;
     value: number;
+    installments: Installment[];
+}
+
+export interface Installment {
+    id: number;
+    date: Date;
+    value: number;
 }
 
 export type SortColumn = keyof Expense | '';

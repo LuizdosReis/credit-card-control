@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let expense of expenses; index as i" (click)="editExpense.emit(expense)">
+            <tr *ngFor="let expense of expenses; index as i" (click)="editExpense.emit(expense.expenseId)">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ expense.date | date:'dd/MM/yyyy' }}</td>
                 <td>{{ expense.value | currency }}</td>
