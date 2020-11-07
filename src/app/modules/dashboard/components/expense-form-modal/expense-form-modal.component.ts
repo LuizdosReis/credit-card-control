@@ -1,6 +1,7 @@
 import { Expense } from './../../../core/models';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BigNumber } from 'bignumber.js';
 
 @Component({
   selector: 'app-expense-form-modal',
@@ -26,19 +27,34 @@ export class ExpenseFormModalComponent implements OnInit {
       installmentSize: [this.expense ? this.expense.installments.length : '', Validators.min(2)],
       installments: this.formBuilder.array([])
     });
+
+    if (this.expense) {
+      this.expense.installments
+      .sort((a, b ) => {
+        if (a.date < b.date) { return -1; }
+        if (a.date > b.date) { return 1; }
+        return 0;
+      })
+      .forEach(installment => {
+        this.installments.push(this.formBuilder.group({
+          id: [installment.id],
+          value: [installment.value, [Validators.required]],
+          date: [new Date(installment.date), [Validators.required]]
+        }));
+      });
+    }
   }
 
   save(): void {
     this.submitted = true;
     if (this.fg.valid) {
-      console.log(this.fg.value);
       this.submit.emit(this.fg.value);
     }
   }
 
   calculateInstallments(): void {
     const installmentsSize = this.fg.controls.installmentSize.value;
-    const value = this.fg.controls.value.value;
+    const value = new BigNumber(this.fg.controls.value.value);
     const date =  this.fg.controls.date.value;
 
     if (installmentsSize < 2) {
@@ -47,8 +63,8 @@ export class ExpenseFormModalComponent implements OnInit {
 
     this.installments.controls = [];
 
-    const installmentValue = Math.round((value / installmentsSize * 100)) / 100;
-    let installmentValueAccumulator = 0;
+    const installmentValue = value.div(installmentsSize);
+    let installmentValueAccumulator = new BigNumber('0');
     let currentDate = date;
 
     for (let installment = 0; installment < installmentsSize; installment++) {
@@ -58,18 +74,18 @@ export class ExpenseFormModalComponent implements OnInit {
       });
 
       currentDate = new Date(currentDate);
-      currentDate.setMonth(currentDate.getMonth() + 1);
       currentDate.setDate(3);
+      currentDate.setMonth(currentDate.getMonth() + 1);
 
-      installmentValueAccumulator += installmentValue;
+      installmentValueAccumulator = installmentValueAccumulator.plus(installmentValue);
 
       this.installments.push(installmentFormGroup);
     }
 
-    if ( value !== installmentValueAccumulator ) {
-      const difference = value - installmentValueAccumulator;
-
-      this.installments.controls[0].value.setValue(installmentValue + difference);
+    if (!value.isEqualTo(installmentValueAccumulator)) {
+      const difference = value.minus(installmentValueAccumulator);
+      const valueControl = this.installments.controls[0] as FormGroup;
+      valueControl.controls.value.setValue(installmentValue.plus(difference));
     }
 
   }
