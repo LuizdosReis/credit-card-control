@@ -3,6 +3,27 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BigNumber } from 'bignumber.js';
 
+type FunctionType = (formGroup: FormGroup) => void;
+
+function ValidateInstallmentValue(valueName: string, installmentArrayName: string): FunctionType {
+  return (formGroup: FormGroup): void => {
+    const valueControl = formGroup.controls[valueName];
+    const installmentFormArray = formGroup.controls[installmentArrayName] as FormArray;
+
+    const isInstallmentValueIncorrect = !installmentFormArray.controls
+      .map(installment => installment.value.value)
+      .reduce((accumulator: BigNumber, installmentValue: BigNumber) =>
+        accumulator.plus(installmentValue), new BigNumber('0'))
+      .isEqualTo(valueControl.value);
+
+    if (isInstallmentValueIncorrect) {
+      installmentFormArray.setErrors({ installmentValueIncorrect: true });
+    } else {
+      installmentFormArray.setErrors(null);
+    }
+  };
+}
+
 @Component({
   selector: 'app-expense-form-modal',
   templateUrl: './expense-form-modal.component.html',
@@ -21,12 +42,16 @@ export class ExpenseFormModalComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.fg = this.formBuilder.group({
-      date: [this.expense ? new Date(this.expense.date) : new Date(), [Validators.required]],
-      value: [this.expense ? this.expense.value : '', [Validators.required]],
-      installmentSize: [this.expense ? this.expense.installments.length : '', Validators.min(2)],
-      installments: this.formBuilder.array([])
-    });
+    this.fg = this.formBuilder.group(
+      {
+        date: [this.expense ? new Date(this.expense.date) : new Date(), [Validators.required]],
+        value: [this.expense ? this.expense.value : '', [Validators.required]],
+        installmentSize: [this.expense ? this.expense.installments.length : '', Validators.min(2)],
+        installments: this.formBuilder.array([])
+      }, {
+        validators: ValidateInstallmentValue('value', 'installments')
+      }
+    );
 
     if (this.expense) {
       this.expense.installments
