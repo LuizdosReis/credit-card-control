@@ -5,9 +5,10 @@ import { BigNumber } from 'bignumber.js';
 
 type FunctionType = (formGroup: FormGroup) => void;
 
-function ValidateInstallmentValue(valueName: string, installmentArrayName: string): FunctionType {
+function ValidateInstallmentValue(valueName: string, installmentArrayName: string, installmentSizeName: string): FunctionType {
   return (formGroup: FormGroup): void => {
     const valueControl = formGroup.controls[valueName];
+    const installmentSizeControl = formGroup.controls[installmentSizeName];
     const installmentFormArray = formGroup.controls[installmentArrayName] as FormArray;
 
     const isInstallmentValueIncorrect = !installmentFormArray.controls
@@ -16,7 +17,7 @@ function ValidateInstallmentValue(valueName: string, installmentArrayName: strin
         accumulator.plus(installmentValue), new BigNumber('0'))
       .isEqualTo(valueControl.value);
 
-    if (isInstallmentValueIncorrect) {
+    if (isInstallmentValueIncorrect && installmentSizeControl.value > 1) {
       installmentFormArray.setErrors({ installmentValueIncorrect: true });
     } else {
       installmentFormArray.setErrors(null);
@@ -49,7 +50,7 @@ export class ExpenseFormModalComponent implements OnInit {
         installmentSize: [this.expense ? this.expense.installments.length : '', Validators.min(2)],
         installments: this.formBuilder.array([])
       }, {
-        validators: ValidateInstallmentValue('value', 'installments')
+        validators: ValidateInstallmentValue('value', 'installments', 'installmentSize')
       }
     );
 
